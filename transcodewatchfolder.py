@@ -18,11 +18,27 @@ while 1:
 	for i in added:
 		currentpathandfile = path_to_watch + "/" + str(i)
 		tempvar = True
+		
 		while tempvar:
 			try:
 				os.rename(currentpathandfile,currentpathandfile)
-				print "renamed"
-				tempvar = False
+				tempvar2 = False
+				
+				firstsize = os.stat(currentpathandfile).st_size
+				firstsize = int(firstsize)
+				
+				time.sleep (10)
+				
+				secondsize = os.stat(currentpathandfile).st_size
+				secondsize = int(secondsize)
+				
+				if firstsize == secondsize:
+					if tempvar2 == False:
+						tempvar = False
+					else:
+						tempvar = True
+				else:
+					tempvar = True
 			except WindowsError:
 				time.sleep (5)
 		print "Added: ", ", ".join (added)
